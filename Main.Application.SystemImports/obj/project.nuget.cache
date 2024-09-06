@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "M8F2QwCxLXbgCIOvS1vgrZ50C00qwidZLUtwdCBmfKr0iOXc2cNUnWAaK1iIFZPNBtL+L7VPTe54de2XBejYzA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Main.Application.SystemImports.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Felipe\\.nuget\\packages\\realtaiizor\\3.8.0.6\\realtaiizor.3.8.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}
