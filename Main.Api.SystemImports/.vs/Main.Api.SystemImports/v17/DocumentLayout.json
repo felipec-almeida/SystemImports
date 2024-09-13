@@ -3,28 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\main.api.systemimports\\controllers\\empresacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|solutionrelative:main.api.systemimports\\controllers\\empresacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.api.systemimports\\main.api.systemimports\\models\\baseerrorresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|solutionrelative:main.api.systemimports\\models\\baseerrorresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\main.api.systemimports\\models\\empresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|solutionrelative:main.api.systemimports\\models\\empresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.api.systemimports\\main.api.systemimports\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|solutionrelative:main.api.systemimports\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\main.api.systemimports\\controllers\\cidadecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|solutionrelative:main.api.systemimports\\controllers\\cidadecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\main.api.systemimports\\models\\paises.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|solutionrelative:main.api.systemimports\\models\\paises.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\main.api.systemimports\\models\\httpmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|solutionrelative:main.api.systemimports\\models\\httpmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.api.systemimports\\main.api.systemimports\\controllers\\estadocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{44EDB269-1E60-4B33-8C39-EF71ADDF1493}|Main.Api.SystemImports\\Main.Api.SystemImports.csproj|solutionrelative:main.api.systemimports\\controllers\\estadocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,86 +18,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BaseErrorResponse.cs",
+              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Models\\BaseErrorResponse.cs",
+              "RelativeDocumentMoniker": "Main.Api.SystemImports\\Models\\BaseErrorResponse.cs",
+              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Models\\BaseErrorResponse.cs",
+              "RelativeToolTip": "Main.Api.SystemImports\\Models\\BaseErrorResponse.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-10T18:13:00.648Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Empresa.cs",
-              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Models\\Empresa.cs",
-              "RelativeDocumentMoniker": "Main.Api.SystemImports\\Models\\Empresa.cs",
-              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Models\\Empresa.cs",
-              "RelativeToolTip": "Main.Api.SystemImports\\Models\\Empresa.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAuAAAA",
+              "Title": "EstadoController.cs",
+              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Controllers\\EstadoController.cs",
+              "RelativeDocumentMoniker": "Main.Api.SystemImports\\Controllers\\EstadoController.cs",
+              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Controllers\\EstadoController.cs",
+              "RelativeToolTip": "Main.Api.SystemImports\\Controllers\\EstadoController.cs",
+              "ViewState": "AQIAAEwBAAAAAAAAAAAmwKEAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-12T20:16:09.225Z",
+              "WhenOpened": "2024-09-10T17:31:37.922Z",
               "EditorCaption": ""
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "EmpresaController.cs",
-              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Controllers\\EmpresaController.cs",
-              "RelativeDocumentMoniker": "Main.Api.SystemImports\\Controllers\\EmpresaController.cs",
-              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Controllers\\EmpresaController.cs",
-              "RelativeToolTip": "Main.Api.SystemImports\\Controllers\\EmpresaController.cs",
-              "ViewState": "AQIAANEAAAAAAAAAAAAowJ0AAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-12T20:15:10.784Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UsuarioController.cs",
-              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Controllers\\UsuarioController.cs",
-              "RelativeDocumentMoniker": "Main.Api.SystemImports\\Controllers\\UsuarioController.cs",
-              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Controllers\\UsuarioController.cs",
-              "RelativeToolTip": "Main.Api.SystemImports\\Controllers\\UsuarioController.cs",
-              "ViewState": "AQIAAHUAAAAAAAAAAADgv24AAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-12T18:32:00.978Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CidadeController.cs",
-              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Controllers\\CidadeController.cs",
-              "RelativeDocumentMoniker": "Main.Api.SystemImports\\Controllers\\CidadeController.cs",
-              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Controllers\\CidadeController.cs",
-              "RelativeToolTip": "Main.Api.SystemImports\\Controllers\\CidadeController.cs",
-              "ViewState": "AQIAAMIAAAAAAAAAAAAQwMsAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-08T23:37:06.659Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Paises.cs",
-              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Models\\Paises.cs",
-              "RelativeDocumentMoniker": "Main.Api.SystemImports\\Models\\Paises.cs",
-              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Models\\Paises.cs",
-              "RelativeToolTip": "Main.Api.SystemImports\\Models\\Paises.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T13:09:21.154Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "HttpModel.cs",
-              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Models\\HttpModel.cs",
-              "RelativeDocumentMoniker": "Main.Api.SystemImports\\Models\\HttpModel.cs",
-              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Api.SystemImports\\Main.Api.SystemImports\\Models\\HttpModel.cs",
-              "RelativeToolTip": "Main.Api.SystemImports\\Models\\HttpModel.cs",
-              "ViewState": "AQIAAEwAAAAAAAAAAAAkwFYAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-24T13:20:34.241Z"
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             }
           ]
         }

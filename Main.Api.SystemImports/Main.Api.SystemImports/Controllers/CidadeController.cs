@@ -1,27 +1,33 @@
 ﻿using Main.Api.SystemImports.Models;
+using Main.Api.SystemImports.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Diagnostics.Eventing.Reader;
 
 #pragma warning disable CS8604 // Possível argumento de referência nula.
 namespace Main.Api.SystemImports.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class CidadeController : ControllerBase
     {
-        private IDbConnection _connection;
-        public CidadeController(IDbConnection connection)
+        private readonly IDbConnection _connection;
+        private readonly TokenService _service;
+
+        public CidadeController(IDbConnection connection, TokenService service)
         {
             this._connection = connection;
+            this._service = service;
         }
 
         /*
          * Responsável por retornar todos os itens da tabela de Estados.
          */
         [HttpGet("get-page")]
+        [AllowAnonymous]
         public IActionResult GetAllCidades([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 30, [FromQuery] string searchOrder = "asc")
         {
             try
@@ -77,12 +83,15 @@ namespace Main.Api.SystemImports.Controllers
 
                 using (var command = this._connection.CreateCommand())
                 {
-                    command.CommandText = $@"select * from si_cidades e where e.id = {cidadeId}";
+                    command.CommandText = $@"SELECT * FROM si_cidades e WHERE e.id = {cidadeId}";
 
                     using (var reader = command.ExecuteReader())
                     {
                         if (reader == null || !((NpgsqlDataReader)reader).HasRows)
-                            return BadRequest($"Nenhuma Cidade de ID {cidadeId} encontrada.");
+                        {
+                            var errorResponse = new BaseErrorResponse($"Nenhuma Cidade de ID {cidadeId} encontrada.", new HttpModel(System.Net.HttpStatusCode.NotFound));
+                            return BadRequest(errorResponse);
+                        }
 
                         while (reader.Read())
                         {
@@ -93,20 +102,22 @@ namespace Main.Api.SystemImports.Controllers
                     }
 
                     return Ok(new BaseCrudResponse<Cidade>(cidadeResult, new HttpModel((System.Net.HttpStatusCode)this.Response.StatusCode)));
-
                 }
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (InvalidDataException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             finally
             {
@@ -132,39 +143,40 @@ namespace Main.Api.SystemImports.Controllers
 
                 using (var command = this._connection.CreateCommand())
                 {
-                    // Inicia uma nova transação no DB
                     command.Transaction = this._connection.BeginTransaction();
-                    command.CommandText = $@"insert into si_cidades (nome, estado_sigla) values ('{cidade.Nome}', '{cidade.EstadoSigla}')";
+                    command.CommandText = $@"INSERT INTO si_cidades (nome, estado_sigla) VALUES ('{cidade.Nome}', '{cidade.EstadoSigla}')";
                     int rowsAffected = command.ExecuteNonQuery();
                     if (rowsAffected != 0)
                     {
                         command.Transaction.Commit();
 
-                        command.CommandText = $@"select c.id from si_cidades c where c.nome = '{cidade.Nome}'";
-
-                        int newCidadeid = (int)command.ExecuteScalar();
-                        cidade.Id = newCidadeid;
+                        command.CommandText = $@"SELECT c.id FROM si_cidades c WHERE c.nome = '{cidade.Nome}'";
+                        int newCidadeId = (int)command.ExecuteScalar();
+                        cidade.Id = newCidadeId;
                         return CreatedAtAction(nameof(InsertCidade), new { id = cidade.Id }, cidade);
-
                     }
                     else
                     {
                         command.Transaction.Rollback();
-                        return BadRequest("Nenhuma Cidade foi inserida.");
+                        var errorResponse = new BaseErrorResponse("Nenhuma Cidade foi inserida.", new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                        return BadRequest(errorResponse);
                     }
                 }
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (InvalidDataException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             finally
             {
@@ -183,29 +195,31 @@ namespace Main.Api.SystemImports.Controllers
                 this._connection.Open();
 
                 if (string.IsNullOrEmpty(novoNome))
-                    throw new ArgumentNullException("Nome do estado não pode ser nulo.");
+                    throw new ArgumentNullException("Nome da cidade não pode ser nulo.");
 
                 if (cidadeId == 0)
                     throw new ArgumentNullException("ID da Cidade não pode ser nula ou igual a 0.");
 
                 using (var command = this._connection.CreateCommand())
                 {
-                    // Inicia uma nova transação no DB
                     command.Transaction = this._connection.BeginTransaction();
-                    command.CommandText = $@"update si_cidades set nome = '{novoNome}' where id = {cidadeId}";
+                    command.CommandText = $@"UPDATE si_cidades SET nome = '{novoNome}' WHERE id = {cidadeId}";
                     int rowsAffected = command.ExecuteNonQuery();
 
                     if (rowsAffected == 1)
                     {
                         command.Transaction.Commit();
 
-                        command.CommandText = @$"select * from si_cidades where id = {cidadeId}";
+                        command.CommandText = $@"SELECT * FROM si_cidades WHERE id = {cidadeId}";
                         Cidade tmpCidade = new Cidade();
 
                         using (var reader = command.ExecuteReader())
                         {
                             if (reader == null || !((NpgsqlDataReader)reader).HasRows)
-                                return BadRequest($"Nenhuma Cidade de ID {cidadeId} encontrado.");
+                            {
+                                var errorResponse = new BaseErrorResponse($"Nenhuma Cidade de ID {cidadeId} encontrada.", new HttpModel(System.Net.HttpStatusCode.NotFound));
+                                return BadRequest(errorResponse);
+                            }
 
                             while (reader.Read())
                             {
@@ -220,21 +234,25 @@ namespace Main.Api.SystemImports.Controllers
                     else
                     {
                         command.Transaction.Rollback();
-                        return NotFound("Nenhuma Cidade foi atualizada.");
+                        var errorResponse = new BaseErrorResponse("Nenhuma Cidade foi atualizada.", new HttpModel(System.Net.HttpStatusCode.NotFound));
+                        return BadRequest(errorResponse);
                     }
                 }
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (InvalidDataException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             finally
             {
@@ -257,26 +275,28 @@ namespace Main.Api.SystemImports.Controllers
 
                 using (var command = this._connection.CreateCommand())
                 {
-                    // Cria uma nova transação
                     command.Transaction = this._connection.BeginTransaction();
 
-                    command.CommandText = @$"select * from si_cidades where id = {cidadeId}";
+                    command.CommandText = $@"SELECT * FROM si_cidades WHERE id = {cidadeId}";
                     Cidade tmpCidade = new Cidade();
 
                     using (var reader = command.ExecuteReader())
                     {
                         if (reader == null || !((NpgsqlDataReader)reader).HasRows)
-                            return BadRequest($"Nenhum estado de ID {cidadeId} encontrado.");
+                        {
+                            var errorResponse = new BaseErrorResponse($"Nenhuma Cidade de ID {cidadeId} encontrada.", new HttpModel(System.Net.HttpStatusCode.NotFound));
+                            return BadRequest(errorResponse);
+                        }
 
                         while (reader.Read())
                         {
                             tmpCidade.Id = int.Parse(reader["id"].ToString());
                             tmpCidade.Nome = reader["nome"].ToString();
-                            tmpCidade.EstadoSigla = reader["sigla"].ToString();
+                            tmpCidade.EstadoSigla = reader["estado_sigla"].ToString();
                         }
                     }
 
-                    command.CommandText = @$"delete from si_cidades where id = {cidadeId}";
+                    command.CommandText = $@"DELETE FROM si_cidades WHERE id = {cidadeId}";
                     int rowsAffected = command.ExecuteNonQuery();
 
                     if (rowsAffected == 1)
@@ -287,21 +307,25 @@ namespace Main.Api.SystemImports.Controllers
                     else
                     {
                         command.Transaction.Rollback();
-                        return NotFound("Nenhuma cidade foi deletada.");
+                        var errorResponse = new BaseErrorResponse("Nenhuma Cidade foi deletada.", new HttpModel(System.Net.HttpStatusCode.NotFound));
+                        return BadRequest(errorResponse);
                     }
                 }
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (InvalidDataException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             finally
             {

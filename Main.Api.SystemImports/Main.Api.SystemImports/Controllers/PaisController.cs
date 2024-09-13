@@ -1,8 +1,9 @@
 ﻿using Main.Api.SystemImports.Models;
+using Main.Api.SystemImports.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Diagnostics.Eventing.Reader;
 
 #pragma warning disable CS8604 // Possível argumento de referência nula.
 namespace Main.Api.SystemImports.Controllers
@@ -11,16 +12,20 @@ namespace Main.Api.SystemImports.Controllers
     [Route("[controller]")]
     public class PaisController : ControllerBase
     {
-        private IDbConnection _connection;
-        public PaisController(IDbConnection connection)
+        private readonly IDbConnection _connection;
+        private readonly TokenService _service;
+
+        public PaisController(IDbConnection connection, TokenService service)
         {
             this._connection = connection;
+            this._service = service;
         }
 
         /*
          * Responsável por retornar todos os itens da tabela de Países.
          */
         [HttpGet("get-page")]
+        [Authorize]
         public IActionResult GetAllPaises([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 30, [FromQuery] string searchOrder = "asc")
         {
             try
@@ -61,39 +66,44 @@ namespace Main.Api.SystemImports.Controllers
         }
 
         [HttpGet("get-one")]
+        [Authorize]
         public IActionResult GetPais([FromQuery][Required] int paisId = 0)
         {
             try
             {
                 this._connection.Open();
-
                 if (paisId == 0)
                     throw new ArgumentNullException("ID do país não pode ser nulo ou igual a 0.");
 
                 using (var command = this._connection.CreateCommand())
                 {
-                    command.CommandText = $@"select p.nome from si_paises p where p.id = '{paisId}'";
+                    command.CommandText = $@"SELECT p.nome FROM si_paises p WHERE p.id = '{paisId}'";
                     var result = command.ExecuteScalar();
+
                     if (result == null)
-                        return BadRequest($"Nenhum país de ID {paisId} encontrado.");
-                    else
                     {
-                        Paises paisResult = new Paises(paisId, result.ToString());
-                        return Ok(new BaseCrudResponse<Paises>(paisResult, new HttpModel((System.Net.HttpStatusCode)this.Response.StatusCode)));
+                        var errorResponse = new BaseErrorResponse($"Nenhum país de ID {paisId} encontrado.", new HttpModel(System.Net.HttpStatusCode.NotFound));
+                        return BadRequest(errorResponse);
                     }
+
+                    Paises paisResult = new Paises(paisId, result.ToString());
+                    return Ok(new BaseCrudResponse<Paises>(paisResult, new HttpModel((System.Net.HttpStatusCode)this.Response.StatusCode)));
                 }
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.NotFound));
+                return BadRequest(errorResponse);
             }
             catch (InvalidDataException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.NotFound));
+                return BadRequest(errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             finally
             {
@@ -105,6 +115,7 @@ namespace Main.Api.SystemImports.Controllers
          * Responsável por retornar um país na tabela de Países.
          */
         [HttpPost("insert")]
+        [Authorize]
         public IActionResult InsertPaises([FromBody][Required] Paises pais)
         {
             try
@@ -116,38 +127,40 @@ namespace Main.Api.SystemImports.Controllers
 
                 using (var command = this._connection.CreateCommand())
                 {
-                    // Inicia uma nova transação no DB
                     command.Transaction = this._connection.BeginTransaction();
-                    command.CommandText = $@"insert into si_paises (nome) values ('{pais.Nome}')";
+                    command.CommandText = $@"INSERT INTO si_paises (nome) VALUES ('{pais.Nome}')";
                     int rowsAffected = command.ExecuteNonQuery();
+
                     if (rowsAffected != 0)
                     {
                         command.Transaction.Commit();
-
-                        command.CommandText = $@"select p.id from si_paises p where p.nome = '{pais.Nome}'";
+                        command.CommandText = $@"SELECT p.id FROM si_paises p WHERE p.nome = '{pais.Nome}'";
                         int newPaisId = (int)command.ExecuteScalar();
                         pais.Id = newPaisId;
-                        return CreatedAtAction(nameof(InsertPaises), new { id = pais.Id }, pais);
-
+                        return CreatedAtAction(nameof(GetPais), new { id = pais.Id }, pais);
                     }
                     else
                     {
                         command.Transaction.Rollback();
-                        return BadRequest("Nenhum país foi inserido.");
+                        var errorResponse = new BaseErrorResponse("Nenhum país foi inserido.", new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                        return BadRequest(errorResponse);
                     }
                 }
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.NotFound));
+                return BadRequest(errorResponse);
             }
             catch (InvalidDataException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.NotFound));
+                return BadRequest(errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             finally
             {
@@ -159,6 +172,7 @@ namespace Main.Api.SystemImports.Controllers
          * Responsável por retornar um país na tabela de Países.
          */
         [HttpPut("update")]
+        [Authorize]
         public IActionResult UpdatePaises([FromQuery][Required] int paisId, [FromQuery][Required] string novoNome)
         {
             try
@@ -173,37 +187,38 @@ namespace Main.Api.SystemImports.Controllers
 
                 using (var command = this._connection.CreateCommand())
                 {
-                    // Inicia uma nova transação no DB
                     command.Transaction = this._connection.BeginTransaction();
-                    command.CommandText = $@"update si_paises set nome = '{novoNome}' where id = {paisId}";
+                    command.CommandText = $@"UPDATE si_paises SET nome = '{novoNome}' WHERE id = {paisId}";
                     int rowsAffected = command.ExecuteNonQuery();
 
                     if (rowsAffected == 1)
                     {
                         command.Transaction.Commit();
-                        Paises tmpPaises = new Paises();
-                        tmpPaises.Nome = novoNome;
-                        tmpPaises.Id = paisId;
+                        Paises tmpPaises = new Paises { Nome = novoNome, Id = paisId };
                         return Ok(new BaseCrudResponse<Paises>(tmpPaises, new HttpModel((System.Net.HttpStatusCode)200)));
                     }
                     else
                     {
                         command.Transaction.Rollback();
-                        return NotFound("Nenhum país foi atualizado.");
+                        var errorResponse = new BaseErrorResponse("Nenhum país foi atualizado.", new HttpModel(System.Net.HttpStatusCode.NotFound));
+                        return BadRequest(errorResponse);
                     }
                 }
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.NotFound));
+                return BadRequest(errorResponse);
             }
             catch (InvalidDataException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.NotFound));
+                return BadRequest(errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             finally
             {
@@ -215,6 +230,7 @@ namespace Main.Api.SystemImports.Controllers
          * Responsável por retornar um país na tabela de Países.
          */
         [HttpDelete("delete")]
+        [Authorize]
         public IActionResult DeletePaises([FromQuery][Required] int paisId)
         {
             try
@@ -226,50 +242,49 @@ namespace Main.Api.SystemImports.Controllers
 
                 using (var command = this._connection.CreateCommand())
                 {
-                    // Cria uma nova transação
                     command.Transaction = this._connection.BeginTransaction();
-
                     string oldNome = string.Empty;
 
-                    using (var command2 = this._connection.CreateCommand())
-                    {
-                        command2.CommandText = @$"select nome from si_paises where id = {paisId}";
-                        oldNome = command2.ExecuteScalar().ToString();
+                    command.CommandText = $@"SELECT nome FROM si_paises WHERE id = {paisId}";
+                    oldNome = command.ExecuteScalar()?.ToString();
 
-                        if (string.IsNullOrEmpty(oldNome))
-                            return NoContent();
+                    if (string.IsNullOrEmpty(oldNome))
+                    {
+                        var errorResponse = new BaseErrorResponse($"Nenhum país de ID {paisId} encontrado.", new HttpModel(System.Net.HttpStatusCode.NotFound));
+                        return BadRequest(errorResponse);
                     }
 
-                    command.CommandText = @$"delete from si_paises where id = {paisId}";
+                    command.CommandText = $@"DELETE FROM si_paises WHERE id = {paisId}";
                     int rowsAffected = command.ExecuteNonQuery();
 
                     if (rowsAffected == 1)
                     {
-
                         command.Transaction.Commit();
-                        Paises tmpPaises = new Paises();
-                        tmpPaises.Nome = oldNome;
-                        tmpPaises.Id = paisId;
+                        Paises tmpPaises = new Paises { Nome = oldNome, Id = paisId };
                         return Ok(new BaseCrudResponse<Paises>(tmpPaises, new HttpModel((System.Net.HttpStatusCode)200)));
                     }
                     else
                     {
                         command.Transaction.Rollback();
-                        return NotFound("Nenhum país foi atualizado.");
+                        var errorResponse = new BaseErrorResponse("Nenhum país foi deletado.", new HttpModel(System.Net.HttpStatusCode.NotFound));
+                        return BadRequest(errorResponse);
                     }
                 }
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.NotFound));
+                return BadRequest(errorResponse);
             }
             catch (InvalidDataException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.NotFound));
+                return BadRequest(errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             finally
             {

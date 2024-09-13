@@ -1,12 +1,6 @@
 ﻿using Main.Application.SystemImports.Interfaces;
 using Main.Application.SystemImports.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Main.Application.SystemImports.Services
 {
@@ -20,11 +14,20 @@ namespace Main.Application.SystemImports.Services
             string urlRequest = @$"https://localhost:7034/estado/get-page";
 
             var result = await Task.Run(() => this._api.SendRequestAsync(ERequestType.GET, urlRequest));
+            string errorMessage = string.Empty;
 
             // Verificar se o resultado é nulo
             if (result == null || string.IsNullOrEmpty(result))
             {
-                MessageBox.Show("A resposta da API é nula.");
+                errorMessage = "A resposta da API é nula.";
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception();
+            }
+            else if (result.Contains("status") || !result.Contains("data"))
+            {
+                var responseError = JsonSerializer.Deserialize<BaseErrorResponse>(result);
+                errorMessage = responseError.Value;
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new Exception();
             }
 
@@ -48,11 +51,20 @@ namespace Main.Application.SystemImports.Services
             string urlRequest = @$"https://localhost:7034/cidade/get-page";
 
             var result = await Task.Run(() => this._api.SendRequestAsync(ERequestType.GET, urlRequest, null, listParameters));
+            string errorMessage = string.Empty;
 
             // Verificar se o resultado é nulo
             if (result == null || string.IsNullOrEmpty(result))
             {
-                MessageBox.Show("A resposta da API é nula.");
+                errorMessage = "A resposta da API é nula.";
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception();
+            }
+            else if (result.Contains("status") || !result.Contains("data"))
+            {
+                var responseError = JsonSerializer.Deserialize<BaseErrorResponse>(result);
+                errorMessage = responseError.Value;
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new Exception();
             }
 
@@ -107,7 +119,7 @@ namespace Main.Application.SystemImports.Services
                 throw new Exception();
             }
 
-            if(result.Contains("status") || result.Contains("400"))
+            if (result.Contains("status") || result.Contains("400"))
             {
                 var responseError = JsonSerializer.Deserialize<CNPJError>(result);
 

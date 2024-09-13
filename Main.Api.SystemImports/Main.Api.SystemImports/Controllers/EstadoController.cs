@@ -1,27 +1,33 @@
 ﻿using Main.Api.SystemImports.Models;
+using Main.Api.SystemImports.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Diagnostics.Eventing.Reader;
 
 #pragma warning disable CS8604 // Possível argumento de referência nula.
 namespace Main.Api.SystemImports.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class EstadoController : ControllerBase
     {
-        private IDbConnection _connection;
-        public EstadoController(IDbConnection connection)
+        private readonly IDbConnection _connection;
+        private readonly TokenService _service;
+
+        public EstadoController(IDbConnection connection, TokenService service)
         {
             this._connection = connection;
+            this._service = service;
         }
 
         /*
          * Responsável por retornar todos os itens da tabela de Estados.
          */
         [HttpGet("get-page")]
+        [AllowAnonymous]
         public IActionResult GetAllEstados([FromQuery] int currentPage = 1, [FromQuery] int pageSize = 30, [FromQuery] string searchOrder = "asc")
         {
             try
@@ -77,12 +83,15 @@ namespace Main.Api.SystemImports.Controllers
 
                 using (var command = this._connection.CreateCommand())
                 {
-                    command.CommandText = $@"select * from si_estados e where e.id = {estadoId}";
+                    command.CommandText = $@"SELECT * FROM si_estados e WHERE e.id = {estadoId}";
 
                     using (var reader = command.ExecuteReader())
                     {
                         if (reader == null || !((NpgsqlDataReader)reader).HasRows)
-                            return BadRequest($"Nenhum estado de ID {estadoId} encontrado.");
+                        {
+                            var errorResponse = new BaseErrorResponse($"Nenhum estado de ID {estadoId} encontrado.", new HttpModel(System.Net.HttpStatusCode.NotFound));
+                            return BadRequest(errorResponse);
+                        }
 
                         while (reader.Read())
                         {
@@ -94,20 +103,22 @@ namespace Main.Api.SystemImports.Controllers
                     }
 
                     return Ok(new BaseCrudResponse<Estado>(estadoResult, new HttpModel((System.Net.HttpStatusCode)this.Response.StatusCode)));
-
                 }
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (InvalidDataException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             finally
             {
@@ -136,39 +147,40 @@ namespace Main.Api.SystemImports.Controllers
 
                 using (var command = this._connection.CreateCommand())
                 {
-                    // Inicia uma nova transação no DB
                     command.Transaction = this._connection.BeginTransaction();
-                    command.CommandText = $@"insert into si_estados (nome, sigla, pais_id) values ('{estado.Nome}', '{estado.Sigla}', {estado.PaisId})";
+                    command.CommandText = $@"INSERT INTO si_estados (nome, sigla, pais_id) VALUES ('{estado.Nome}', '{estado.Sigla}', {estado.PaisId})";
                     int rowsAffected = command.ExecuteNonQuery();
                     if (rowsAffected != 0)
                     {
                         command.Transaction.Commit();
 
-                        command.CommandText = $@"select e.id from si_estados e where e.nome = '{estado.Nome}'";
-
+                        command.CommandText = $@"SELECT e.id FROM si_estados e WHERE e.nome = '{estado.Nome}'";
                         int newEstadoId = (int)command.ExecuteScalar();
                         estado.Id = newEstadoId;
                         return CreatedAtAction(nameof(InsertEstado), new { id = estado.Id }, estado);
-
                     }
                     else
                     {
                         command.Transaction.Rollback();
-                        return BadRequest("Nenhum Estado foi inserido.");
+                        var errorResponse = new BaseErrorResponse("Nenhum Estado foi inserido.", new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                        return BadRequest(errorResponse);
                     }
                 }
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (InvalidDataException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             finally
             {
@@ -194,22 +206,24 @@ namespace Main.Api.SystemImports.Controllers
 
                 using (var command = this._connection.CreateCommand())
                 {
-                    // Inicia uma nova transação no DB
                     command.Transaction = this._connection.BeginTransaction();
-                    command.CommandText = $@"update si_estados set nome = '{novoNome}' where id = {estadoId}";
+                    command.CommandText = $@"UPDATE si_estados SET nome = '{novoNome}' WHERE id = {estadoId}";
                     int rowsAffected = command.ExecuteNonQuery();
 
                     if (rowsAffected == 1)
                     {
                         command.Transaction.Commit();
 
-                        command.CommandText = @$"select * from si_estados where id = {estadoId}";
+                        command.CommandText = $@"SELECT * FROM si_estados WHERE id = {estadoId}";
                         Estado tmpEstado = new Estado();
 
                         using (var reader = command.ExecuteReader())
                         {
                             if (reader == null || !((NpgsqlDataReader)reader).HasRows)
-                                return BadRequest($"Nenhum estado de ID {estadoId} encontrado.");
+                            {
+                                var errorResponse = new BaseErrorResponse($"Nenhum estado de ID {estadoId} encontrado.", new HttpModel(System.Net.HttpStatusCode.NotFound));
+                                return BadRequest(errorResponse);
+                            }
 
                             while (reader.Read())
                             {
@@ -225,21 +239,25 @@ namespace Main.Api.SystemImports.Controllers
                     else
                     {
                         command.Transaction.Rollback();
-                        return NotFound("Nenhum estado foi atualizado.");
+                        var errorResponse = new BaseErrorResponse("Nenhum estado foi atualizado.", new HttpModel(System.Net.HttpStatusCode.NotFound));
+                        return BadRequest(errorResponse);
                     }
                 }
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (InvalidDataException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             finally
             {
@@ -262,16 +280,18 @@ namespace Main.Api.SystemImports.Controllers
 
                 using (var command = this._connection.CreateCommand())
                 {
-                    // Cria uma nova transação
                     command.Transaction = this._connection.BeginTransaction();
 
-                    command.CommandText = @$"select * from si_estados where id = {estadoId}";
+                    command.CommandText = $@"SELECT * FROM si_estados WHERE id = {estadoId}";
                     Estado tmpEstado = new Estado();
 
                     using (var reader = command.ExecuteReader())
                     {
                         if (reader == null || !((NpgsqlDataReader)reader).HasRows)
-                            return BadRequest($"Nenhum estado de ID {estadoId} encontrado.");
+                        {
+                            var errorResponse = new BaseErrorResponse($"Nenhum Estado de ID {estadoId} encontrado.", new HttpModel(System.Net.HttpStatusCode.NotFound));
+                            return BadRequest(errorResponse);
+                        }
 
                         while (reader.Read())
                         {
@@ -282,7 +302,7 @@ namespace Main.Api.SystemImports.Controllers
                         }
                     }
 
-                    command.CommandText = @$"delete from si_estados where id = {estadoId}";
+                    command.CommandText = $@"DELETE FROM si_estados WHERE id = {estadoId}";
                     int rowsAffected = command.ExecuteNonQuery();
 
                     if (rowsAffected == 1)
@@ -293,21 +313,25 @@ namespace Main.Api.SystemImports.Controllers
                     else
                     {
                         command.Transaction.Rollback();
-                        return NotFound("Nenhum estado foi deletado.");
+                        var errorResponse = new BaseErrorResponse("Nenhum Estado foi deletado.", new HttpModel(System.Net.HttpStatusCode.NotFound));
+                        return BadRequest(errorResponse);
                     }
                 }
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (InvalidDataException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             finally
             {

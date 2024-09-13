@@ -1,10 +1,10 @@
 ﻿using Main.Api.SystemImports.Models;
+using Main.Api.SystemImports.Services;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using NpgsqlTypes;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Diagnostics.Eventing.Reader;
 
 #pragma warning disable CS8604 // Possível argumento de referência nula.
 namespace Main.Api.SystemImports.Controllers
@@ -14,9 +14,12 @@ namespace Main.Api.SystemImports.Controllers
     public class UsuarioController : ControllerBase
     {
         private IDbConnection _connection;
-        public UsuarioController(IDbConnection connection)
+        private readonly TokenService _service;
+
+        public UsuarioController(IDbConnection connection, TokenService service)
         {
             this._connection = connection;
+            this._service = service;
         }
 
         /*
@@ -42,36 +45,34 @@ namespace Main.Api.SystemImports.Controllers
                 if (usuario.EmpresaId == 0)
                     throw new ArgumentNullException("ID da Empresa não pode ser nula.");
 
-                /* if (usuario.TipoUsuarioId == 0)
-                    throw new ArgumentNullException("ID do Tipo de Usuário não pode ser nulo."); */
-
                 using (var command = this._connection.CreateCommand())
                 {
                     command.CommandText = $@"CALL prc_si_valida_usuario(:p_email, :p_senha, :p_empresaid, :p_retorno)";
 
-                    /*
-                     * Parâmetros de Entrada
-                     */
-                    var pEmail = new NpgsqlParameter("p_email", NpgsqlDbType.Text);
-                    pEmail.Direction = ParameterDirection.Input;
-                    pEmail.Value = usuario.Email;
+                    var pEmail = new NpgsqlParameter("p_email", NpgsqlDbType.Text)
+                    {
+                        Direction = ParameterDirection.Input,
+                        Value = usuario.Email
+                    };
 
-                    var pSenha = new NpgsqlParameter("p_senha", NpgsqlDbType.Text);
-                    pSenha.Direction = ParameterDirection.Input;
-                    pSenha.Value = usuario.Senha;
+                    var pSenha = new NpgsqlParameter("p_senha", NpgsqlDbType.Text)
+                    {
+                        Direction = ParameterDirection.Input,
+                        Value = usuario.Senha
+                    };
 
-                    var pEmpresaId = new NpgsqlParameter("p_empresaid", NpgsqlDbType.Integer);
-                    pEmpresaId.Direction = ParameterDirection.Input;
-                    pEmpresaId.Value = usuario.EmpresaId;
+                    var pEmpresaId = new NpgsqlParameter("p_empresaid", NpgsqlDbType.Integer)
+                    {
+                        Direction = ParameterDirection.Input,
+                        Value = usuario.EmpresaId
+                    };
 
-                    /*
-                     * Parâmetro de Saída
-                     */
-                    var pRetorno = new NpgsqlParameter("p_retorno", NpgsqlDbType.Text);
-                    pRetorno.Direction = ParameterDirection.InputOutput;
-                    pRetorno.Value = DBNull.Value;
+                    var pRetorno = new NpgsqlParameter("p_retorno", NpgsqlDbType.Text)
+                    {
+                        Direction = ParameterDirection.InputOutput,
+                        Value = DBNull.Value
+                    };
 
-                    // Adicionando os Parâmetros na Procedure
                     command.Parameters.Add(pEmail);
                     command.Parameters.Add(pSenha);
                     command.Parameters.Add(pEmpresaId);
@@ -79,23 +80,34 @@ namespace Main.Api.SystemImports.Controllers
 
                     command.ExecuteNonQuery();
 
-                    // Obtendo o valor do parâmetro de saída
                     UsuarioResult = (string)pRetorno.Value;
 
-                    return Ok(new BaseCrudResponse<string>(UsuarioResult, new HttpModel((System.Net.HttpStatusCode)this.Response.StatusCode)));
+                    var token = this._service.GenerateToken(usuario);
+                    usuario.Senha = string.Empty;
+
+                    var newResponse = new
+                    {
+                        Response = new BaseCrudResponse<string>(UsuarioResult, new HttpModel((System.Net.HttpStatusCode)this.Response.StatusCode)),
+                        Token = token
+                    };
+
+                    return Ok(newResponse);
                 }
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (InvalidDataException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             finally
             {
@@ -127,124 +139,43 @@ namespace Main.Api.SystemImports.Controllers
 
                 using (var command = this._connection.CreateCommand())
                 {
-                    // Inicia uma nova transação no DB
                     command.Transaction = this._connection.BeginTransaction();
-                    command.CommandText = $@"insert into si_usuario (email, senha, empresa_id, tipo_usuario_id) values ('{usuario.Email}', '{usuario.Senha}', {usuario.EmpresaId}, 1)";
+                    command.CommandText = $@"INSERT INTO si_usuario (email, senha, empresa_id, tipo_usuario_id) VALUES ('{usuario.Email}', '{usuario.Senha}', {usuario.EmpresaId}, 1)";
+
                     int rowsAffected = command.ExecuteNonQuery();
                     if (rowsAffected != 0)
                     {
                         command.Transaction.Commit();
 
-                        command.CommandText = $@"select u.id from si_usuario u where u.email = '{usuario.Email}' and u.senha = '{usuario.Senha}' and u.empresa_id = {usuario.EmpresaId}";
+                        command.CommandText = $@"SELECT u.id FROM si_usuario u WHERE u.email = '{usuario.Email}' AND u.senha = '{usuario.Senha}' AND u.empresa_id = {usuario.EmpresaId}";
 
                         int newUsuarioId = (int)command.ExecuteScalar();
                         usuario.Id = newUsuarioId;
                         usuario.TipoUsuarioId = 1;
                         return CreatedAtAction(nameof(InsertUsuario), new { id = usuario.Id }, usuario);
-
                     }
                     else
                     {
                         command.Transaction.Rollback();
-                        return BadRequest("Nenhum Usuário foi inserido.");
+                        var errorResponse = new BaseErrorResponse("Nenhum Usuário foi inserido.", new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                        return BadRequest(errorResponse);
                     }
                 }
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (InvalidDataException ex)
             {
-                return NotFound(ex.ToString());
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
-            }
-            finally
-            {
-                this._connection.Close();
-            }
-        }
-
-        /*
-         * Responsável por retornar um país na tabela de Enderecos.
-         */
-        [HttpPut("update")]
-        public IActionResult UpdateUsuario([FromBody][Required] Usuario usuario)
-        {
-            try
-            {
-                this._connection.Open();
-
-                if (usuario.Id == 0)
-                    throw new ArgumentNullException("ID do Usuário não pode ser nula ou igual a 0.");
-
-                using (var command = this._connection.CreateCommand())
-                {
-                    // Inicia uma nova transação no DB
-                    command.Transaction = this._connection.BeginTransaction();
-
-                    Usuario usuarioResult = new Usuario();
-
-                    command.CommandText = $@"select * from si_usuario e where e.id = {usuario.Id}";
-
-                    using (var reader = command.ExecuteReader())
-                    {
-                        if (reader == null || !((NpgsqlDataReader)reader).HasRows)
-                            return BadRequest($"Nenhum Usuário de ID {usuario.Id} encontrado.");
-
-                        while (reader.Read())
-                        {
-                            usuarioResult.Id = int.Parse(reader["id"].ToString());
-                            usuarioResult.EmpresaId = int.Parse(reader["empresa_id"].ToString());
-                            usuarioResult.TipoUsuarioId = int.Parse(reader["tipo_usuario_id"].ToString());
-                            usuarioResult.Email = reader["email"].ToString();
-                            usuarioResult.Senha = reader["senha"].ToString();
-                        }
-                    }
-
-                    /*
-                     * Antes de dar Update na tabela de Enderecos, vê se tem diferença dentre um campo e outro.
-                     */
-                    if (!usuario.Email.Equals(usuarioResult.Email))
-                        usuarioResult.Email = usuario.Email;
-
-                    if (!usuario.Senha.Equals(usuarioResult.Senha))
-                        usuarioResult.Senha = usuario.Senha;
-
-                    command.CommandText = $@"
-update si_usario set
-email = '{usuarioResult.Email}',
-senha = '{usuarioResult.Senha}'
-where id = {usuarioResult.Id}
-";
-                    int rowsAffected = command.ExecuteNonQuery();
-
-                    if (rowsAffected == 1)
-                    {
-                        command.Transaction.Commit();
-                        return Ok(new BaseCrudResponse<Usuario>(usuarioResult, new HttpModel((System.Net.HttpStatusCode)200)));
-                    }
-                    else
-                    {
-                        command.Transaction.Rollback();
-                        return NotFound("Nenhum Usuário foi atualizado.");
-                    }
-                }
-            }
-            catch (ArgumentNullException ex)
-            {
-                return NotFound(ex.ToString());
-            }
-            catch (InvalidDataException ex)
-            {
-                return NotFound(ex.ToString());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString()); // Exceção Genérica Padrão
+                var errorResponse = new BaseErrorResponse(ex.Message, new HttpModel(System.Net.HttpStatusCode.BadRequest));
+                return BadRequest(errorResponse);
             }
             finally
             {
