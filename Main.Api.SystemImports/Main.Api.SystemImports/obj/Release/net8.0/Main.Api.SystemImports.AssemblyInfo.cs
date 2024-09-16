@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Main.Api.SystemImports")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eafa3133af2f77cacf247bce50000581e4cb160f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+019180908056cb6523b524a715979bf67b02e5a8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Main.Api.SystemImports")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Main.Api.SystemImports")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
