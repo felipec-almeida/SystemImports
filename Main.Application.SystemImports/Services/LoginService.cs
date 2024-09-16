@@ -1,14 +1,6 @@
 ﻿using Main.Application.SystemImports.Interfaces;
 using Main.Application.SystemImports.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 
 namespace Main.Application.SystemImports.Services
 {
@@ -28,29 +20,32 @@ namespace Main.Application.SystemImports.Services
         public async Task<string> Login()
         {
             string urlRequest = @$"https://localhost:7034/usuario/valida-usuario";
-            // string decryptedPassword = this.DecryptoLogin();
 
-            // Usuario tmpUser = new Usuario(this._email, this._password, this._companyId);
             var tmpUser = new { email = this._email, senha = this._password, empresaId = this._companyId };
-
-            /*HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(urlRequest);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));*/
-            //var result = await client.PostAsJsonAsync("/usuario/valida-usuario", tmpUser);
-
             var result = await Task.Run(() => this._api.SendRequestAsync(ERequestType.POST, urlRequest, tmpUser));
 
             // Verificar se o resultado é nulo
+            string errorMessage = string.Empty;
+
             if (result == null || string.IsNullOrEmpty(result))
             {
-                MessageBox.Show("A resposta da API é nula.");
+                errorMessage = "A resposta da API é nula.";
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception();
+            }
+            else if ((result.Contains("statusCode") || !result.Contains("data")) && !result.Contains("\"statusCode\":200"))
+            {
+                var responseError = JsonSerializer.Deserialize<BaseErrorResponse>(result);
+                errorMessage = responseError.Value;
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new Exception();
             }
 
-            var response = JsonSerializer.Deserialize<BaseCrudResponse<string>>(result);
+            var response = JsonSerializer.Deserialize<BaseAuthenticationResponse<string>>(result);
 
-            return response.Value;
+            this._api.SubmitToken(response.Token);
+
+            return response.Response.Value;
         }
 
         public string LogOff()
@@ -67,9 +62,19 @@ namespace Main.Application.SystemImports.Services
             var result = await Task.Run(() => this._api.SendRequestAsync(ERequestType.GET, urlRequest));
 
             // Verificar se o resultado é nulo
+            string errorMessage = string.Empty;
+
             if (result == null || string.IsNullOrEmpty(result))
             {
-                MessageBox.Show("A resposta da API é nula.");
+                errorMessage = "A resposta da API é nula.";
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception();
+            }
+            else if ((result.Contains("statusCode") || !result.Contains("data")) && !result.Contains("\"statusCode\":200"))
+            {
+                var responseError = JsonSerializer.Deserialize<BaseErrorResponse>(result);
+                errorMessage = responseError.Value;
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new Exception();
             }
 
@@ -81,6 +86,37 @@ namespace Main.Application.SystemImports.Services
             }
 
             return listEmpresas;
+        }
+
+        public async Task<Empresa> GetEmpresa(int id)
+        {
+            Dictionary<string, string> queryParams = new Dictionary<string, string>();
+            queryParams.Add("empresaId", id.ToString());
+
+            string urlRequest = @$"https://localhost:7034/empresa/get-one";
+
+            var result = await Task.Run(() => this._api.SendRequestAsync(ERequestType.GET, urlRequest, null, queryParams));
+
+            // Verificar se o resultado é nulo
+            string errorMessage = string.Empty;
+
+            if (result == null || string.IsNullOrEmpty(result))
+            {
+                errorMessage = "A resposta da API é nula.";
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception();
+            }
+            else if ((result.Contains("statusCode") || !result.Contains("data")) && !result.Contains("\"statusCode\":200"))
+            {
+                var responseError = JsonSerializer.Deserialize<BaseErrorResponse>(result);
+                errorMessage = responseError.Value;
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception();
+            }
+
+            var response = JsonSerializer.Deserialize<BaseCrudResponse<Empresa>>(result);
+
+            return response.Value;
         }
 
         public string DecryptoLogin()

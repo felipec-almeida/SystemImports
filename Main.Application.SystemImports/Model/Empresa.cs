@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Main.Application.SystemImports.Model
 {
@@ -15,6 +10,7 @@ namespace Main.Application.SystemImports.Model
         private string _cnpj;
         private int _enderecoId;
         private string _status;
+        private string _imagemLogo;
 
         [JsonPropertyName("id")]
         public int Id { get { return this._id; } set { this._id = value; } }
@@ -34,18 +30,22 @@ namespace Main.Application.SystemImports.Model
         [JsonPropertyName("status")]
         public string Status { get { return this._status; } set { this._status = value; } }
 
+        [JsonPropertyName("imagemLogo")]
+        public string ImagemLogo { get { return this._imagemLogo; } set { this._imagemLogo = value; } }
+
         public Empresa() { }
 
-        public Empresa(string nome, string descricao, string cnpj, int enderecoId, string status)
+        public Empresa(string nome, string descricao, string cnpj, int enderecoId, string status, string imagemLogo)
         {
             Nome = nome;
             Descricao = descricao;
             Cnpj = cnpj;
             EnderecoId = enderecoId;
             Status = status;
+            ImagemLogo = imagemLogo;
         }
 
-        public Empresa(int id, string nome, string descricao, string cnpj, int enderecoId, string status)
+        public Empresa(int id, string nome, string descricao, string cnpj, int enderecoId, string status, string imagemLogo)
         {
             Id = id;
             Nome = nome;
@@ -53,6 +53,7 @@ namespace Main.Application.SystemImports.Model
             Cnpj = cnpj;
             EnderecoId = enderecoId;
             Status = status;
+            ImagemLogo = imagemLogo;
         }
     }
 }

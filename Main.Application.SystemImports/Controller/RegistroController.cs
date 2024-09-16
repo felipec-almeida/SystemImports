@@ -1,11 +1,6 @@
 ﻿using Main.Application.SystemImports.Interfaces;
 using Main.Application.SystemImports.Model;
 using Main.Application.SystemImports.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Main.Application.SystemImports.Controller
 {
@@ -188,7 +183,7 @@ namespace Main.Application.SystemImports.Controller
 
         public async Task<int> InsereEmpresa(string nomeEmpresa, string descricaoEmpresa, string cnpj, int enderecoId)
         {
-            Empresa empresa = new Empresa(nomeEmpresa, descricaoEmpresa, cnpj, enderecoId, "true");
+            Empresa empresa = new Empresa(nomeEmpresa, descricaoEmpresa, cnpj, enderecoId, "true", string.Empty);
             int empresaIdResponse = await this._services.GetService<RegistroService>().InsereEmpresa(empresa);
             return empresaIdResponse;
         }

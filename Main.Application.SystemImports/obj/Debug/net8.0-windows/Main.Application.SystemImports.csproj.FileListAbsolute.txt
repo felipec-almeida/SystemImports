@@ -20,3 +20,4 @@ C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Application.System
 C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Application.SystemImports\obj\Debug\net8.0-windows\Main.Application.SystemImports.Registro.resources
 C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Application.SystemImports\obj\Debug\net8.0-windows\Main.Application.SystemImports.Properties.Resources.resources
 C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Application.SystemImports\obj\Debug\net8.0-windows\Main.Application.SystemImports.RegistroUsuario.resources
+C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Application.SystemImports\obj\Debug\net8.0-windows\Main.Application.SystemImports.sourcelink.json

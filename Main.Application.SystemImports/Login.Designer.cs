@@ -36,6 +36,9 @@
             dungeonLabel3 = new ReaLTaiizor.Controls.DungeonLabel();
             btnLogin = new ReaLTaiizor.Controls.DungeonButtonLeft();
             btnRegistrar = new ReaLTaiizor.Controls.DungeonButtonLeft();
+            progressBarImage = new ReaLTaiizor.Controls.PoisonProgressSpinner();
+            picLogoEmpresa = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)picLogoEmpresa).BeginInit();
             SuspendLayout();
             // 
             // cbEmpresa
@@ -64,6 +67,7 @@
             cbEmpresa.Size = new Size(237, 26);
             cbEmpresa.StartIndex = 0;
             cbEmpresa.TabIndex = 8;
+            cbEmpresa.SelectedIndexChanged += cbEmpresa_SelectedIndexChanged;
             // 
             // txtSenha
             // 
@@ -177,11 +181,41 @@
             btnRegistrar.TextAlignment = StringAlignment.Center;
             btnRegistrar.Click += btnRegistrar_Click;
             // 
+            // progressBarImage
+            // 
+            progressBarImage.BackColor = SystemColors.Control;
+            progressBarImage.CustomBackground = true;
+            progressBarImage.EnsureVisible = false;
+            progressBarImage.ForeColor = SystemColors.ControlText;
+            progressBarImage.Location = new Point(454, 54);
+            progressBarImage.Maximum = 100;
+            progressBarImage.Name = "progressBarImage";
+            progressBarImage.Size = new Size(46, 40);
+            progressBarImage.Speed = 2F;
+            progressBarImage.Style = ReaLTaiizor.Enum.Poison.ColorStyle.Orange;
+            progressBarImage.TabIndex = 24;
+            progressBarImage.Text = "poisonProgressSpinner1";
+            progressBarImage.Theme = ReaLTaiizor.Enum.Poison.ThemeStyle.Light;
+            progressBarImage.UseCustomBackColor = true;
+            progressBarImage.UseSelectable = true;
+            // 
+            // picLogoEmpresa
+            // 
+            picLogoEmpresa.Enabled = false;
+            picLogoEmpresa.Location = new Point(393, 12);
+            picLogoEmpresa.Name = "picLogoEmpresa";
+            picLogoEmpresa.Size = new Size(177, 113);
+            picLogoEmpresa.TabIndex = 25;
+            picLogoEmpresa.TabStop = false;
+            picLogoEmpresa.Visible = false;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(582, 216);
+            Controls.Add(picLogoEmpresa);
+            Controls.Add(progressBarImage);
             Controls.Add(btnRegistrar);
             Controls.Add(btnLogin);
             Controls.Add(dungeonLabel3);
@@ -197,6 +231,7 @@
             Text = "System Imports ";
             TransparencyKey = Color.Fuchsia;
             Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)picLogoEmpresa).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -211,5 +246,7 @@
         private ReaLTaiizor.Controls.DungeonLabel dungeonLabel3;
         private ReaLTaiizor.Controls.DungeonButtonLeft btnLogin;
         private ReaLTaiizor.Controls.DungeonButtonLeft btnRegistrar;
+        private ReaLTaiizor.Controls.PoisonProgressSpinner progressBarImage;
+        private PictureBox picLogoEmpresa;
     }
 }

@@ -43,12 +43,13 @@ public class EmpresaController : ControllerBase
                     while (reader.Read())
                     {
                         listEmpresas.Add(new Empresa(
-                             int.Parse(reader["id"].ToString()),
-                             reader["nome"].ToString(),
-                             reader["descricao"].ToString(),
-                             reader["cnpj"].ToString(),
-                             int.Parse(reader["endereco_id"].ToString()),
-                             reader["status"].ToString()));
+                                        int.Parse(reader["id"].ToString()),
+                                        reader["nome"].ToString(),
+                                        reader["descricao"].ToString(),
+                                        reader["cnpj"].ToString(),
+                                        int.Parse(reader["endereco_id"].ToString()),
+                                        reader["status"].ToString(),
+                                        reader["logo"]?.ToString()));
                     }
                 }
             }
@@ -70,7 +71,7 @@ public class EmpresaController : ControllerBase
      * Responsável por retornar um  item específico da tabela de Empresas.
      */
     [HttpGet("get-one")]
-    [Authorize]
+    [AllowAnonymous]
     public IActionResult GetEmpresa([FromQuery][Required] int empresaId)
     {
         try
@@ -94,12 +95,13 @@ public class EmpresaController : ControllerBase
                     }
 
                     empresaResult = new Empresa(
-                        int.Parse(reader["id"].ToString()),
-                        reader["nome"].ToString(),
-                        reader["descricao"].ToString(),
-                        reader["cnpj"].ToString(),
-                        int.Parse(reader["endereco_id"].ToString()),
-                        reader["status"].ToString());
+                                        int.Parse(reader["id"].ToString()),
+                                        reader["nome"].ToString(),
+                                        reader["descricao"].ToString(),
+                                        reader["cnpj"].ToString(),
+                                        int.Parse(reader["endereco_id"].ToString()),
+                                        reader["status"].ToString(),
+                                        reader["logo"]?.ToString());
                 }
             }
 
@@ -136,8 +138,8 @@ public class EmpresaController : ControllerBase
             using (var command = this._connection.CreateCommand())
             {
                 command.Transaction = this._connection.BeginTransaction();
-                command.CommandText = $@"INSERT INTO si_empresas (nome, descricao, cnpj, endereco_id, status) 
-                                      VALUES ('{empresa.Nome}', '{empresa.Descricao}', '{empresa.Cnpj}', {empresa.EnderecoId}, {empresa.Status})";
+                command.CommandText = $@"INSERT INTO si_empresas (nome, descricao, cnpj, endereco_id, status, logo) 
+                                      VALUES ('{empresa.Nome}', '{empresa.Descricao}', '{empresa.Cnpj}', {empresa.EnderecoId}, {empresa.Status}, '')";
 
                 int rowsAffected = command.ExecuteNonQuery();
                 if (rowsAffected != 0)
@@ -188,7 +190,7 @@ public class EmpresaController : ControllerBase
                 command.CommandText = $@"UPDATE si_empresas 
                                       SET nome = '{empresa.Nome}', descricao = '{empresa.Descricao}', 
                                           cnpj = '{empresa.Cnpj}', endereco_id = {empresa.EnderecoId}, 
-                                          status = {empresa.Status} 
+                                          status = {empresa.Status}, logo = '{empresa.ImagemLogo}'
                                       WHERE id = {empresaId}";
 
                 int rowsAffected = command.ExecuteNonQuery();
@@ -251,7 +253,8 @@ public class EmpresaController : ControllerBase
                         reader["descricao"].ToString(),
                         reader["cnpj"].ToString(),
                         int.Parse(reader["endereco_id"].ToString()),
-                        reader["status"].ToString());
+                        reader["status"].ToString(),
+                        reader["logo"].ToString());
                 }
 
                 command.CommandText = $@"DELETE FROM si_empresas WHERE id = {empresaId}";

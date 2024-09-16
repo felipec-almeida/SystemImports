@@ -26,3 +26,12 @@ C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Api.SystemImports\
 C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Api.SystemImports\Main.Api.SystemImports\obj\Release\net8.0\Main.Api.SystemImports.pdb
 C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Api.SystemImports\Main.Api.SystemImports\obj\Release\net8.0\Main.Api.SystemImports.genruntimeconfig.cache
 C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Api.SystemImports\Main.Api.SystemImports\obj\Release\net8.0\ref\Main.Api.SystemImports.dll
+C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Api.SystemImports\Main.Api.SystemImports\bin\Release\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Api.SystemImports\Main.Api.SystemImports\bin\Release\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Api.SystemImports\Main.Api.SystemImports\bin\Release\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Api.SystemImports\Main.Api.SystemImports\bin\Release\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Api.SystemImports\Main.Api.SystemImports\bin\Release\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Api.SystemImports\Main.Api.SystemImports\bin\Release\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Api.SystemImports\Main.Api.SystemImports\bin\Release\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Api.SystemImports\Main.Api.SystemImports\bin\Release\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Felipe\Desktop\Arquivos\Projeto - SystemImports\Main.Api.SystemImports\Main.Api.SystemImports\obj\Release\net8.0\Main.Api.SystemImports.sourcelink.json

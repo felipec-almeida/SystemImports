@@ -1,16 +1,12 @@
 ﻿using Main.Application.SystemImports.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Main.Application.SystemImports.Model
 {
     public class APIClient
     {
+        private string _token = string.Empty;
         private static readonly HttpClient _httpClient = new HttpClient();
 
         public async Task<string> SendRequestAsync(
@@ -71,6 +67,10 @@ namespace Main.Application.SystemImports.Model
                         throw new NotSupportedException($"Método HTTP {methodType} não suportado.");
                 }
 
+                // Verifica se o token foi informado na requisição e adiciona ao cabecalho da requisição
+                if (!string.IsNullOrEmpty(this._token))
+                    request.Headers.Add("Authorization", $"Bearer {this._token}");
+
                 HttpResponseMessage response = await _httpClient.SendAsync(request);
                 response.EnsureSuccessStatusCode();
 
@@ -81,6 +81,11 @@ namespace Main.Application.SystemImports.Model
                 Console.WriteLine($"Erro ao acessar a API: {ex.Message}");
                 return null;
             }
+        }
+
+        public void SubmitToken(string token)
+        {
+            this._token = token;
         }
 
     }

@@ -14,16 +14,17 @@ namespace Main.Application.SystemImports.Services
             string urlRequest = @$"https://localhost:7034/estado/get-page";
 
             var result = await Task.Run(() => this._api.SendRequestAsync(ERequestType.GET, urlRequest));
-            string errorMessage = string.Empty;
 
             // Verificar se o resultado é nulo
+            string errorMessage = string.Empty;
+
             if (result == null || string.IsNullOrEmpty(result))
             {
                 errorMessage = "A resposta da API é nula.";
                 MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new Exception();
             }
-            else if (result.Contains("status") || !result.Contains("data"))
+            else if ((result.Contains("statusCode") || !result.Contains("data")) && !result.Contains("\"statusCode\":200"))
             {
                 var responseError = JsonSerializer.Deserialize<BaseErrorResponse>(result);
                 errorMessage = responseError.Value;
@@ -51,16 +52,17 @@ namespace Main.Application.SystemImports.Services
             string urlRequest = @$"https://localhost:7034/cidade/get-page";
 
             var result = await Task.Run(() => this._api.SendRequestAsync(ERequestType.GET, urlRequest, null, listParameters));
-            string errorMessage = string.Empty;
 
             // Verificar se o resultado é nulo
+            string errorMessage = string.Empty;
+
             if (result == null || string.IsNullOrEmpty(result))
             {
                 errorMessage = "A resposta da API é nula.";
                 MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new Exception();
             }
-            else if (result.Contains("status") || !result.Contains("data"))
+            else if ((result.Contains("statusCode") || !result.Contains("data")) && !result.Contains("\"statusCode\":200"))
             {
                 var responseError = JsonSerializer.Deserialize<BaseErrorResponse>(result);
                 errorMessage = responseError.Value;
@@ -90,9 +92,19 @@ namespace Main.Application.SystemImports.Services
             var result = await Task.Run(() => this._api.SendRequestAsync(ERequestType.GET, urlRequest, null, listParameters));
 
             // Verificar se o resultado é nulo
+            string errorMessage = string.Empty;
+
             if (result == null || string.IsNullOrEmpty(result))
             {
-                MessageBox.Show("A resposta da API é nula.");
+                errorMessage = "A resposta da API é nula.";
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception();
+            }
+            else if ((result.Contains("statusCode") || !result.Contains("data")) && !result.Contains("\"statusCode\":200"))
+            {
+                var responseError = JsonSerializer.Deserialize<BaseErrorResponse>(result);
+                errorMessage = responseError.Value;
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new Exception();
             }
 
@@ -113,9 +125,19 @@ namespace Main.Application.SystemImports.Services
             var result = await Task.Run(() => this._api.SendRequestAsync(ERequestType.GET, urlRequest));
 
             // Verificar se o resultado é nulo
+            string errorMessage = string.Empty;
+
             if (result == null || string.IsNullOrEmpty(result))
             {
-                MessageBox.Show("A resposta da API é nula.");
+                errorMessage = "A resposta da API é nula.";
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception();
+            }
+            else if ((result.Contains("statusCode") || !result.Contains("data")) && !result.Contains("\"statusCode\":200"))
+            {
+                var responseError = JsonSerializer.Deserialize<BaseErrorResponse>(result);
+                errorMessage = responseError.Value;
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new Exception();
             }
 
@@ -137,9 +159,19 @@ namespace Main.Application.SystemImports.Services
             var result = await Task.Run(() => this._api.SendRequestAsync(ERequestType.POST, urlRequest, endereco, null));
 
             // Verificar se o resultado é nulo
+            string errorMessage = string.Empty;
+
             if (result == null || string.IsNullOrEmpty(result))
             {
-                MessageBox.Show("A resposta da API é nula.");
+                errorMessage = "A resposta da API é nula.";
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception();
+            }
+            else if ((result.Contains("statusCode") || !result.Contains("data")) && !result.Contains("\"statusCode\":200"))
+            {
+                var responseError = JsonSerializer.Deserialize<BaseErrorResponse>(result);
+                errorMessage = responseError.Value;
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new Exception();
             }
 
@@ -159,9 +191,19 @@ namespace Main.Application.SystemImports.Services
             var result = await Task.Run(() => this._api.SendRequestAsync(ERequestType.POST, urlRequest, empresa, null));
 
             // Verificar se o resultado é nulo
+            string errorMessage = string.Empty;
+
             if (result == null || string.IsNullOrEmpty(result))
             {
-                MessageBox.Show("A resposta da API é nula.");
+                errorMessage = "A resposta da API é nula.";
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception();
+            }
+            else if ((result.Contains("statusCode") || !result.Contains("data")) && !result.Contains("\"statusCode\":200"))
+            {
+                var responseError = JsonSerializer.Deserialize<BaseErrorResponse>(result);
+                errorMessage = responseError.Value;
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new Exception();
             }
 
@@ -181,9 +223,19 @@ namespace Main.Application.SystemImports.Services
             var result = await Task.Run(() => this._api.SendRequestAsync(ERequestType.POST, urlRequest, usuario, null));
 
             // Verificar se o resultado é nulo
+            string errorMessage = string.Empty;
+
             if (result == null || string.IsNullOrEmpty(result))
             {
-                MessageBox.Show("A resposta da API é nula.");
+                errorMessage = "A resposta da API é nula.";
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception();
+            }
+            else if ((result.Contains("statusCode") || !result.Contains("data")) && !result.Contains("\"statusCode\":200"))
+            {
+                var responseError = JsonSerializer.Deserialize<BaseErrorResponse>(result);
+                errorMessage = responseError.Value;
+                MessageBox.Show(errorMessage, "Erro - API", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new Exception();
             }
 

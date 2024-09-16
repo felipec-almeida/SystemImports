@@ -3,15 +3,11 @@
   "WorkspaceRootPath": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\controller\\registrocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:controller\\registrocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.application.systemimports\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.application.systemimports\\model\\servicelocator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:model\\servicelocator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.application.systemimports\\services\\registroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\services\\registroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:services\\registroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -19,8 +15,40 @@
       "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:model\\baseerrorresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\registrousuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:registrousuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.application.systemimports\\controller\\registrocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:controller\\registrocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.application.systemimports\\controller\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:controller\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.application.systemimports\\services\\loginservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:services\\loginservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.application.systemimports\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.application.systemimports\\registro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:registro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.application.systemimports\\model\\empresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:model\\empresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.application.systemimports\\registro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:registro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.application.systemimports\\model\\apiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:model\\apiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|c:\\users\\felipe\\desktop\\arquivos\\projeto - systemimports\\main.application.systemimports\\model\\baseauthenticationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{424D51C4-1B13-45AB-8DE6-5BCC93F04FE6}|Main.Application.SystemImports.csproj|solutionrelative:model\\baseauthenticationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +58,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,65 +66,157 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ServiceLocator.cs",
-              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Model\\ServiceLocator.cs",
-              "RelativeDocumentMoniker": "Model\\ServiceLocator.cs",
-              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Model\\ServiceLocator.cs",
-              "RelativeToolTip": "Model\\ServiceLocator.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAABkAAAAbAAAA",
+              "DocumentIndex": 8,
+              "Title": "Empresa.cs",
+              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Model\\Empresa.cs",
+              "RelativeDocumentMoniker": "Model\\Empresa.cs",
+              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Model\\Empresa.cs",
+              "RelativeToolTip": "Model\\Empresa.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAA6wDcAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T16:43:44.007Z",
+              "WhenOpened": "2024-09-16T20:21:19.303Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Registro.cs [Projeto]",
+              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Registro.cs",
+              "RelativeDocumentMoniker": "Registro.cs",
+              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Registro.cs [Projeto]",
+              "RelativeToolTip": "Registro.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-16T19:09:35.612Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Login.cs",
+              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Login.cs",
+              "RelativeDocumentMoniker": "Login.cs",
+              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Login.cs",
+              "RelativeToolTip": "Login.cs",
+              "ViewState": "AQIAADcAAAAAAAAAAAAiwEgAAABPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-16T18:48:00.159Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Registro.cs",
+              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Registro.cs",
+              "RelativeDocumentMoniker": "Registro.cs",
+              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Registro.cs",
+              "RelativeToolTip": "Registro.cs",
+              "ViewState": "AQIAAEMAAAAAAAAAAAAIwEkAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-16T14:49:21.318Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Login.cs [Projeto]",
+              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Login.cs",
+              "RelativeDocumentMoniker": "Login.cs",
+              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Login.cs [Projeto]",
+              "RelativeToolTip": "Login.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-16T18:45:26.569Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Controller\\LoginController.cs",
+              "RelativeDocumentMoniker": "Controller\\LoginController.cs",
+              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Controller\\LoginController.cs",
+              "RelativeToolTip": "Controller\\LoginController.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAADwvzoAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-16T18:42:14.102Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "APIClient.cs",
+              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Model\\APIClient.cs",
+              "RelativeDocumentMoniker": "Model\\APIClient.cs",
+              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Model\\APIClient.cs",
+              "RelativeToolTip": "Model\\APIClient.cs",
+              "ViewState": "AQIAAEkAAAAAAAAAAAAgwFgAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-16T18:20:27.026Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BaseAuthenticationResponse.cs",
+              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Model\\BaseAuthenticationResponse.cs",
+              "RelativeDocumentMoniker": "Model\\BaseAuthenticationResponse.cs",
+              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Model\\BaseAuthenticationResponse.cs",
+              "RelativeToolTip": "Model\\BaseAuthenticationResponse.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-16T18:15:12.895Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LoginService.cs",
+              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Services\\LoginService.cs",
+              "RelativeDocumentMoniker": "Services\\LoginService.cs",
+              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Services\\LoginService.cs",
+              "RelativeToolTip": "Services\\LoginService.cs",
+              "ViewState": "AQIAAFQAAAAAAAAAAAAYwF0AAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-16T14:47:19.829Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "RegistroController.cs",
               "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Controller\\RegistroController.cs",
               "RelativeDocumentMoniker": "Controller\\RegistroController.cs",
               "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Controller\\RegistroController.cs",
               "RelativeToolTip": "Controller\\RegistroController.cs",
-              "ViewState": "AQIAALwAAAAAAAAAAAA3wMYAAABMAAAA",
+              "ViewState": "AQIAAK0AAAAAAAAAAAAswLkAAABvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-10T18:18:35.07Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "BaseErrorResponse.cs",
               "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Model\\BaseErrorResponse.cs",
               "RelativeDocumentMoniker": "Model\\BaseErrorResponse.cs",
               "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Model\\BaseErrorResponse.cs",
               "RelativeToolTip": "Model\\BaseErrorResponse.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAA8AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAA9AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-10T18:13:29.178Z"
+              "WhenOpened": "2024-09-10T18:13:29.178Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "RegistroService.cs",
               "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Services\\RegistroService.cs",
               "RelativeDocumentMoniker": "Services\\RegistroService.cs",
               "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\Services\\RegistroService.cs",
               "RelativeToolTip": "Services\\RegistroService.cs",
-              "ViewState": "AQIAAIQAAAAAAAAAAAAcwDUAAAAvAAAA",
+              "ViewState": "AQIAAGUAAAAAAAAAAAAIwCAAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-19T20:14:28.995Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "RegistroUsuario.cs [Projeto]",
-              "DocumentMoniker": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\RegistroUsuario.cs",
-              "RelativeDocumentMoniker": "RegistroUsuario.cs",
-              "ToolTip": "C:\\Users\\Felipe\\Desktop\\Arquivos\\Projeto - SystemImports\\Main.Application.SystemImports\\RegistroUsuario.cs [Projeto]",
-              "RelativeToolTip": "RegistroUsuario.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-29T13:54:30.766Z"
             }
           ]
         }
